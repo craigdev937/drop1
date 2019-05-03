@@ -7,7 +7,7 @@ module.exports = {
         filename: "main.js",
         chunkFilename: "[id].js"
     },
-    devtool: "",
+    devtool: "cheap-source-map",
     resolve: {
         extensions: [".ts", ".tsx", ".js", ".jsx", ".json"]
     },

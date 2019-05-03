@@ -1,5 +1,5 @@
 import { DraggableLocation } from "react-beautiful-dnd";
-import { ColorMap } from "./types";
+import { ColorMap, Row } from "./types";
 
 // A little function to help us with reording the result.
 export const reorder = (
@@ -13,33 +13,34 @@ export const reorder = (
     return result;
 };
 
-export const reorderColors = (
-    colors: ColorMap,
+export const reorderRows = (
+    rows: Row[],
     source: DraggableLocation,
     destination: DraggableLocation
 ) => {
-    const current = [...colors[source.droppableId]];
-    const next = [...colors[destination.droppableId]];
-    const target = current[source.index];
+    return rows;
+    // const current = [...colors[source.droppableId]];
+    // const next = [...colors[destination.droppableId]];
+    // const target = current[source.index];
 
-    // Moving to the same list.
-    if (source.droppableId === destination.droppableId) {
-        const reordered = reorder(current, source.index, destination.index);
-        return {
-            ...colors,
-            [source.droppableId]: reordered
-        };
-    }
+    // // Moving to the same list.
+    // if (source.droppableId === destination.droppableId) {
+    //     const reordered = reorder(current, source.index, destination.index);
+    //     return {
+    //         ...colors,
+    //         [source.droppableId]: reordered
+    //     };
+    // }
 
-    // Moving to a different list.
-    // Remove from the original list.
-    current.splice(source.index, 1);
-    // Insert into next.
-    next.splice(destination.index, 0, target);
-    return {
-        ...colors,
-        [source.droppableId]: current,
-        [destination.droppableId]: next
-    };
+    // // Moving to a different list.
+    // // Remove from the original list.
+    // current.splice(source.index, 1);
+    // // Insert into next.
+    // next.splice(destination.index, 0, target);
+    // return {
+    //     ...colors,
+    //     [source.droppableId]: current,
+    //     [destination.droppableId]: next
+    // };
 };
 

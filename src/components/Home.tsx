@@ -1,15 +1,25 @@
 import React from "react";
 import { DragDropContext } from "react-beautiful-dnd";
-import { reorderColors } from "./reorder";
+import { generate } from "shortid";
+import { reorderRows } from "./reorder";
 import { ColorMap } from "./types";
 import { AuthorList } from "./AuthorList";
 
+const aId = generate();
+const unrankedId = generate();
+
 export const Home = () => {
-    const [colorMap, setColors] = React.useState<ColorMap>({
-        a: ["blue", "red", "yellow"],
-        b: ["pink"],
-        c: ["green", "tan"]
-    });
+    const [rows, setRows] = React.useState([
+        { id: aId, label: "a", urls: [] },
+        {
+            id: unrankedId,
+            label: "unranked",
+            urls: [
+                "https://www.ssbwiki.com/images/thumb/b/b3/Olimar_SSBU.png/375px-Olimar_SSBU.png",
+                "https://www.ssbwiki.com/images/thumb/b/b0/Olimar-Alt4_SSBU.png/375px-Olimar-Alt4_SSBU.png"
+            ]
+        }
+    ]);
 
     return (
         <DragDropContext 
@@ -18,17 +28,30 @@ export const Home = () => {
                 if (!destination) {
                     return;
                 }
-                setColors(reorderColors(colorMap, source, destination));
+                setRows(reorderRows(rows, source, destination));
             }}
         >
             <React.Fragment>
-                {Object.entries(colorMap).map(([key, value]) => (
+                <button 
+                    onClick={() => {
+                        setRows([
+                            {
+                                id: generate(),
+                                label: "",
+                                urls: []
+                            },
+                            ...rows
+                        ]);
+                    }}
+                >Add Row
+                </button>
+                {rows.map((row) => (
                     <AuthorList
                         internalScroll
-                        key={key}
-                        listId={key}
+                        key={row.id}
+                        listId={row.id}
                         listType="CARD"
-                        colors={value}
+                        row={row}
                     />
                 ))}
             </React.Fragment>

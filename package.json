@@ -18,10 +18,12 @@
     "react": "^16.8.6",
     "react-beautiful-dnd": "^11.0.1",
     "react-dom": "^16.8.6",
-    "react-router-dom": "^5.0.0"
+    "react-router-dom": "^5.0.0",
+    "shortid": "^2.2.14"
   },
   "devDependencies": {
     "@types/react-beautiful-dnd": "^11.0.1",
+    "@types/shortid": "0.0.29",
     "css-loader": "^2.1.1",
     "file-loader": "^3.0.1",
     "style-loader": "^0.23.1",
