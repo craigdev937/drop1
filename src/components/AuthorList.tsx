@@ -8,24 +8,41 @@ interface Props {
     listType?: string;
     internalScroll?: boolean;
     isCombineEnabled?: boolean;
+    onUp: () => void;
+    onDown: () => void;
+    onLabelChange: (newText: string) => void;
 };
 
-export const AuthorList: React.FC<Props> = ({ listId, listType, row }) => {
+export const AuthorList: React.FC<Props> = ({ 
+    listId, listType, row, onUp, onDown, onLabelChange
+}) => {
     return (
-        <Droppable
-            droppableId={listId}
-            type={listType}
-            direction="horizontal"
-            isCombineEnabled={false}
-        >
-        {dropProvided => (
-            <main {...dropProvided.droppableProps}>
+        <main  style={{ display: "flex", alignItems: "center" }}>
+            <section>
+                <aside>
+                    <button onClick={onUp}>Up</button>
+                </aside>
+                <input value={row.label} onChange={event => onLabelChange(event.target.value)} />
+                <aside>
+                    <button onClick={onDown}>Down</button>
+                </aside>
+            </section>
+            <Droppable
+                droppableId={listId}
+                type={listType}
+                direction="horizontal"
+                isCombineEnabled={false}
+            >
+            {dropProvided => (
                 <section 
+                    {...dropProvided.droppableProps}
                     style={{
-                         display: "flex",
-                         backgroundColor: "pink",
-                         margin: 20,
-                         minHeight: 70
+                            flex: 1,
+                            display: "flex",
+                            backgroundColor: "pink",
+                            margin: 20,
+                            minHeight: 70,
+                            overflowX: "auto"
                     }} 
                     ref={dropProvided.innerRef}
                 >
@@ -50,9 +67,9 @@ export const AuthorList: React.FC<Props> = ({ listId, listType, row }) => {
                     ))}
                     {dropProvided.placeholder}
                 </section>
-            </main>
-        )}
-        </Droppable>
+            )}
+            </Droppable>
+        </main>
     );
 };
 
